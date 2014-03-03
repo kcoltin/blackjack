@@ -2,7 +2,7 @@
 #include <math.h> 
 #include <stdio.h> 
 #include <stdlib.h> 
-#include "util/error.h"
+#include "error.h"
 #include "bj_sims.h" 
 #include "bj_strat.h" 
 #include "hands.h" 

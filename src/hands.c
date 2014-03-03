@@ -1,8 +1,8 @@
 #include "hands.h"
 #include <stdio.h> 
 #include <stdlib.h> 
-#include "util/boolean.h"
-#include "util/error.h"
+#include "boolean.h"
+#include "error.h"
 #include "bj_strat.h"
 
 Hand *hands; 

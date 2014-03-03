@@ -23,9 +23,9 @@
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <string.h>
-#include "util/error.h"
-#include "util/boolean.h"
-#include "util/linal.h"
+#include "error.h"
+#include "boolean.h"
+#include "linal.h"
 #include "bj_strat.h"
 #include "hands.h" 
 #include "print_chart.h" 

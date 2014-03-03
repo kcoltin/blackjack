@@ -1,11 +1,11 @@
 #include "bj_sims.h" 
 #include <stdlib.h> 
 #include <math.h> 
-#include "util/boolean.h" 
-#include "util/error.h"
-#include "util/linal.h" 
-#include "util/moremath.h"
-#include "util/stp.h"
+#include "boolean.h" 
+#include "error.h"
+#include "linal.h" 
+#include "moremath.h"
+#include "stp.h"
 #include "bj_strat.h" 
 #include "hands.h" 
 
