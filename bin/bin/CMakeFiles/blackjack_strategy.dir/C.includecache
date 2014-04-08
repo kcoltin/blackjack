@@ -1,0 +1,138 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/bj_sims.h
+bj_strat.h
+../include/bj_strat.h
+hands.h
+../include/hands.h
+
+../include/bj_strat.h
+hands.h
+../include/hands.h
+
+../include/hands.h
+
+../include/print_chart.h
+stdio.h
+-
+bj_sims.h
+../include/bj_sims.h
+bj_strat.h
+../include/bj_strat.h
+
+../util/include/boolean.h
+
+../util/include/error.h
+
+../util/include/linal.h
+stdio.h
+-
+complex.h
+-
+gsl/gsl_math.h
+-
+gsl/gsl_eigen.h
+-
+
+../util/include/moremath.h
+
+../util/include/stp.h
+gsl/gsl_rng.h
+-
+
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/bj_sims.c
+bj_sims.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/bj_sims.h
+stdlib.h
+-
+math.h
+-
+boolean.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/boolean.h
+error.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/error.h
+linal.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/linal.h
+moremath.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/moremath.h
+stp.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/stp.h
+bj_strat.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/bj_strat.h
+hands.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/hands.h
+
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/bj_strat.c
+bj_strat.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/bj_strat.h
+stdlib.h
+-
+boolean.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/boolean.h
+error.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/error.h
+linal.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/linal.h
+moremath.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/moremath.h
+hands.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/hands.h
+
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/hands.c
+hands.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/hands.h
+stdio.h
+-
+stdlib.h
+-
+boolean.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/boolean.h
+error.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/error.h
+bj_strat.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/bj_strat.h
+
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/main.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+error.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/error.h
+boolean.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/boolean.h
+linal.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/linal.h
+bj_strat.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/bj_strat.h
+hands.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/hands.h
+print_chart.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/print_chart.h
+
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/print_chart.c
+print_chart.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/print_chart.h
+math.h
+-
+stdio.h
+-
+stdlib.h
+-
+error.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/error.h
+bj_sims.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/bj_sims.h
+bj_strat.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/bj_strat.h
+hands.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/src/hands.h
+

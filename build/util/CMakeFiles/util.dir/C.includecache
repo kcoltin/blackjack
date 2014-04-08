@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../util/include/error.h
+
+../util/include/linal.h
+stdio.h
+-
+complex.h
+-
+gsl/gsl_math.h
+-
+gsl/gsl_eigen.h
+-
+
+../util/include/moremath.h
+
+../util/include/stp.h
+gsl/gsl_rng.h
+-
+
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/stp.c
+stp.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/stp.h
+math.h
+-
+stdlib.h
+-
+sys/time.h
+-
+gsl/gsl_rng.h
+-
+error.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/error.h
+linal.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/linal.h
+moremath.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/moremath.h
+

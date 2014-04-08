@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC -g   -shared -Wl,-soname,libutil.so -o ../../lib/libutil.so CMakeFiles/util.dir/src/boolean.c.o CMakeFiles/util.dir/src/error.c.o CMakeFiles/util.dir/src/linal.c.o CMakeFiles/util.dir/src/moremath.c.o CMakeFiles/util.dir/src/stp.c.o 

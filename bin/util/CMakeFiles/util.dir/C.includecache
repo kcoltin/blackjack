@@ -1,0 +1,92 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../util/include/boolean.h
+
+../util/include/error.h
+
+../util/include/linal.h
+stdio.h
+-
+complex.h
+-
+gsl/gsl_math.h
+-
+gsl/gsl_eigen.h
+-
+
+../util/include/moremath.h
+
+../util/include/stp.h
+gsl/gsl_rng.h
+-
+
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/boolean.c
+boolean.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/boolean.h
+
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/error.c
+error.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/error.h
+stdio.h
+-
+stdlib.h
+-
+
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/linal.c
+linal.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/linal.h
+stdlib.h
+-
+stdio.h
+-
+math.h
+-
+complex.h
+-
+moremath.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/moremath.h
+boolean.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/boolean.h
+error.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/error.h
+gsl/gsl_math.h
+-
+gsl/gsl_eigen.h
+-
+
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/moremath.c
+moremath.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/moremath.h
+math.h
+-
+stdlib.h
+-
+boolean.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/boolean.h
+error.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/error.h
+
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/stp.c
+stp.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/stp.h
+math.h
+-
+stdlib.h
+-
+sys/time.h
+-
+gsl/gsl_rng.h
+-
+error.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/error.h
+linal.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/linal.h
+moremath.h
+/home/kcoltin/Documents/misc/blackjack strategy/git/util/src/moremath.h
+
