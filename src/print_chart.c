@@ -78,12 +78,14 @@ void printChart (Strategy **chart, const char *filename, int showWinPct,
 void printHand (int i, Strategy **chart, int showWinPct, FILE *file)
 {
   int j; 
+	char *handName;
 
   if (hands[i].isObvious) //don't print "obvious" hands 
     return; 
     
   fprintf(file, "\\hline\n"); 
-  fprintf(file, "%s ", getHandName(hands[i])); 
+	handName = getHandName(hands[i]); 
+  fprintf(file, "%s ", handName); 
   
   for (j = 2; j <= NUM_CARDS; j++)
     fprintf(file, " & %s ", actionSymbol(chart[i][j].action)); 
@@ -97,6 +99,8 @@ void printHand (int i, Strategy **chart, int showWinPct, FILE *file)
     fprintf(file, " & %.0f/%.0f \\\\\n", 100.*chart[i][1].winPct, 
           100.*chart[i][1].lossPct); //ace 
   }
+
+	free(handName);
 }
 
 

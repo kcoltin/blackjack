@@ -199,6 +199,11 @@ int calculateSimpleChart (Strategy **chart)
   else
     status = EXIT_SUCCESS; 
 
+  for (i = 0; i < NUM_HANDS_SIMPLE; i++) {
+		free(isSolved[i]);
+	}
+	free(isSolved);
+
   return status; 
 }
 
@@ -318,7 +323,7 @@ double probOfPushGivenTotal (int yourValue, int upCard)
 // probability is given by the dot product of the row of the transition matrix
 // corresponding to the player's hand and the vector of probabilities of winning
 // given each hand his hand could transform to after the hit. 
-// This is the dot product of P[handIndex] and the winPct's of chart[:][upCard]. 
+// This is the dot product of P[handIndex] and the winPct's of chart[:][upCard].
 // 
 // The hit transition matrix is the transition matrix of moving from 
 // the current hand to another if the player hits on the current hand. 
@@ -329,7 +334,7 @@ double probOfPushGivenTotal (int yourValue, int upCard)
 double getHitWinProb (Strategy **chart, int **isSolved, int handIndex, 
               int upCard)
 {
-  double *winProbsByHand = getWinProbsByHand(chart, upCard); 
+  double *winProbsByHand = getWinProbsByHand(chart, upCard, isSolved); 
   int i; 
   const double ERR_CODE = -1.; 
   double p; 
@@ -337,11 +342,14 @@ double getHitWinProb (Strategy **chart, int **isSolved, int handIndex,
   //Check to see if the problem is solvable 
   for (i = 0; i < NUM_HANDS_SIMPLE; i++)
   {
-    if (hitTransitionMatrix[handIndex][i] > 0. && !(isSolved[i][upCard]))
+    if (hitTransitionMatrix[handIndex][i] > 0. && !(isSolved[i][upCard])) {
+  		free(winProbsByHand); 
       return ERR_CODE; 
+		}
   }
   
-  p = dot (hitTransitionMatrix[handIndex], winProbsByHand, NUM_HANDS_SIMPLE); 
+  p = dot_ignore_undef (hitTransitionMatrix[handIndex], winProbsByHand, 
+	                      NUM_HANDS_SIMPLE); 
   free(winProbsByHand); 
   
   return p; 
@@ -354,7 +362,7 @@ double getHitWinProb (Strategy **chart, int **isSolved, int handIndex,
 double getHitLossProb (Strategy **chart, int **isSolved, int handIndex, 
                 int upCard)
 {
-  double *lossProbsByHand = getLossProbsByHand(chart, upCard); 
+  double *lossProbsByHand = getLossProbsByHand(chart, upCard, isSolved); 
   int i; 
   const double ERR_CODE = -1.; 
   double p; 
@@ -362,11 +370,14 @@ double getHitLossProb (Strategy **chart, int **isSolved, int handIndex,
   //Check to see if the problem is solvable 
   for (i = 0; i < NUM_HANDS_SIMPLE; i++)
   {
-    if (hitTransitionMatrix[handIndex][i] > 0. && !(isSolved[i][upCard]))
+    if (hitTransitionMatrix[handIndex][i] > 0. && !(isSolved[i][upCard])) {
+  		free(lossProbsByHand); 
       return ERR_CODE; 
+		}
   }
   
-  p = dot (hitTransitionMatrix[handIndex], lossProbsByHand, NUM_HANDS_SIMPLE); 
+  p = dot_ignore_undef (hitTransitionMatrix[handIndex], lossProbsByHand, 
+	                      NUM_HANDS_SIMPLE); 
   free(lossProbsByHand); 
   
   return p; 
@@ -421,9 +432,10 @@ double getSplitEV (Strategy **chart, int splitCard, int upCard)
     
   ev /= 1. - 2. * startingHandDistrib[splittableHandIndex]; 
 
-  //Multiply by two: what we have until now is the exp. val of *each* split hand.   
+  //Multiply by two: what we have until now is the exp. val of *each* split hand
   ev *= 2.; 
   
+	free(startingHandDistrib); 
   return ev; 
 }
 
@@ -435,9 +447,9 @@ double getSplitEV (Strategy **chart, int splitCard, int upCard)
 // card that was split - i.e., the original hand was two cards both of type 
 // splitCard. 
 //------------------------------------------------------------------------------
-double getSplitWinProb (Strategy **chart, int splitCard, int upCard)
+double getSplitWinProb (Strategy **chart, int splitCard, int upCard, int **isSolved)
 {
-  double *winProbsByHand = getWinProbsByHand(chart, upCard); 
+  double *winProbsByHand = getWinProbsByHand(chart, upCard, isSolved); 
   double p; 
   int i; 
 
@@ -475,9 +487,9 @@ double getSplitWinProb (Strategy **chart, int splitCard, int upCard)
 //------------------------------------------------------------------------------
 // Like getSplitWinProb but for a loss. 
 //------------------------------------------------------------------------------
-double getSplitLossProb (Strategy **chart, int splitCard, int upCard)
+double getSplitLossProb (Strategy **chart, int splitCard, int upCard, int **isSolved)
 {
-  double *lossProbsByHand = getLossProbsByHand(chart, upCard); 
+  double *lossProbsByHand = getLossProbsByHand(chart, upCard, isSolved); 
   double p; 
   int i; 
 
@@ -609,14 +621,21 @@ double getDDLossProb (Strategy **chart, Hand hand, int upCard)
 //------------------------------------------------------------------------------
 // Returns the probability of winning each hand given the dealer's up card. 
 //------------------------------------------------------------------------------
-double * getWinProbsByHand (Strategy **chart, int upCard)
+double * getWinProbsByHand (Strategy **chart, int upCard, int **isSolved)
 {
   int i; 
   double *winProbsByHand = allocvector(NUM_HANDS_SIMPLE); 
-  if (winProbsByHand == NULL) throwMemErr("winProbsByHand", "getWinProbsByHand");
+  if(winProbsByHand == NULL) throwMemErr("winProbsByHand", "getWinProbsByHand");
   
-  for (i = 0; i < NUM_HANDS_SIMPLE; i++)
-    winProbsByHand[i] = chart[i][upCard].winPct; 
+  for (i = 0; i < NUM_HANDS_SIMPLE; i++) {
+		if (isSolved[i][upCard]) {
+	    winProbsByHand[i] = chart[i][upCard].winPct; 
+		}
+		else {
+			// signals that it is not yet defined, since probabilities can't be neg.
+			winProbsByHand[i] = -1.; 
+		}
+	}
   
   return winProbsByHand; 
 }  
@@ -625,15 +644,22 @@ double * getWinProbsByHand (Strategy **chart, int upCard)
 //------------------------------------------------------------------------------
 // Returns the probability of losing each hand given the dealer's up card. 
 //------------------------------------------------------------------------------
-double * getLossProbsByHand (Strategy **chart, int upCard)
+double * getLossProbsByHand (Strategy **chart, int upCard, int **isSolved)
 {
   int i; 
   double *lossProbsByHand = allocvector(NUM_HANDS_SIMPLE); 
   if (lossProbsByHand == NULL) 
     throwMemErr("lossProbsByHand", "getLossProbsByHand");
   
-  for (i = 0; i < NUM_HANDS_SIMPLE; i++)
-    lossProbsByHand[i] = chart[i][upCard].lossPct; 
+  for (i = 0; i < NUM_HANDS_SIMPLE; i++) {
+		if (isSolved[i][upCard]) {
+	    lossProbsByHand[i] = chart[i][upCard].lossPct; 
+		}
+		else {
+			// signals that it is not yet defined, since probabilities can't be neg.
+			lossProbsByHand[i] = -1.; 
+		}
+	}
   
   return lossProbsByHand; 
 }  
@@ -692,12 +718,13 @@ double ** makeDealersProbabilities ()
     //probabilities of ending up with each value 
     for (j = 0; j < NUM_HANDS_SIMPLE; j++)
       dealerProbabilities[upCard][hands[j].value] += v[j]; 
+
+	  free(pi); 
+	  free(v); 
+  	freematrix(PP, NUM_HANDS_SIMPLE); 
   }
 
   freematrix(P, NUM_HANDS_SIMPLE); 
-  freematrix(PP, NUM_HANDS_SIMPLE); 
-  free(pi); 
-  free(v); 
   
   return dealerProbabilities; 
 }
@@ -903,6 +930,7 @@ Strategy splitOrDoubleStrat (Strategy **chart, int handIndex, int upCard)
   int splitCard; 
   Strategy strat = chart[handIndex][upCard]; 
   Hand hand = hands[handIndex]; 
+	int **isSolved = iones(NUM_HANDS_SIMPLE, NUM_CARDS + 1); // needed by getSplitWinProb
   
   //First, determine whether to double. 
   ddWinProb = getDDWinProb (chart, hand, upCard); 
@@ -928,8 +956,8 @@ Strategy splitOrDoubleStrat (Strategy **chart, int handIndex, int upCard)
       if (splitEV > strat.winPct - strat.lossPct)
       {
         strat.action = SPLIT; 
-        strat.winPct = getSplitWinProb(chart, splitCard, upCard); 
-        strat.lossPct = getSplitLossProb(chart, splitCard, upCard); 
+        strat.winPct = getSplitWinProb(chart, splitCard, upCard, isSolved); 
+        strat.lossPct = getSplitLossProb(chart, splitCard, upCard, isSolved); 
         strat.splitEV = splitEV; 
       }
     }
@@ -938,12 +966,14 @@ Strategy splitOrDoubleStrat (Strategy **chart, int handIndex, int upCard)
       if (splitEV > 2. * (strat.winPct - strat.lossPct)) 
       {
         strat.action = SPLIT; 
-        strat.winPct = getSplitWinProb(chart, splitCard, upCard); 
-        strat.lossPct = getSplitLossProb(chart, splitCard, upCard); 
+        strat.winPct = getSplitWinProb(chart, splitCard, upCard, isSolved); 
+        strat.lossPct = getSplitLossProb(chart, splitCard, upCard, isSolved); 
         strat.splitEV = splitEV; 
       }
     }
   }
+
+	freeimatrix (isSolved, NUM_HANDS_SIMPLE); 
   
   return strat; 
 }
@@ -1085,6 +1115,25 @@ double probOfUpCardGivenNoBJ (int upCard)
     probBoth = CARD_PROBABILITIES[upCard]; 
   
   return probBoth / probNoBJ; 
+}
+
+
+// Returns the dot product of x and y, while ignoring values of y that are 
+// undefined (signaled by negative values). Used by getHitWinProb among others.
+double dot_ignore_undef (double *x, double *y, int N) { 
+	int i; 
+	double d = 0.; 
+
+	for (i = 0; i < N; i++) { 
+		if (y[i] >= 0.) {
+			d += x[i] * y[i]; 
+		}
+		else if (x[i] > 0.) { 
+			throwErr("attempt to multiply positive probability by undefined probability", "dot_ignore_undef"); 
+		}
+	}
+
+	return d; 
 }
 
 

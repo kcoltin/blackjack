@@ -41,12 +41,12 @@ double probOfPushGivenTotal (int, int);
 double getHitWinProb (Strategy **, int **, int, int);
 double getHitLossProb (Strategy **, int **, int, int); 
 double getSplitEV (Strategy **, int, int);
-double getSplitWinProb (Strategy **, int, int);
-double getSplitLossProb (Strategy **, int, int);
+double getSplitWinProb (Strategy **, int, int, int **);
+double getSplitLossProb (Strategy **, int, int, int **);
 double getDDWinProb (Strategy **, Hand, int);
 double getDDLossProb (Strategy **, Hand, int);
-double * getWinProbsByHand (Strategy **, int);
-double * getLossProbsByHand (Strategy **, int);
+double * getWinProbsByHand (Strategy **, int, int **);
+double * getLossProbsByHand (Strategy **, int, int **);
 int doesDealerStand (Hand hand); 
 double ** makeDealersProbabilities (); 
 double ** makeDealersTransitionMat (); 
@@ -61,6 +61,7 @@ double * getStartingHandProbs ();
 double * getHandExpVals (Strategy **, double); 
 double getEVOfHand (Strategy **, int, double); 
 double probOfUpCardGivenNoBJ (int); 
+double dot_ignore_undef (double *, double *, int);
 
 #endif 
 

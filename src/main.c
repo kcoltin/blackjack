@@ -8,10 +8,10 @@
  *  Use: 
  *  To execute the program, which will compute the optimal strategy and output
  *  results in a chart: 
- *  ./BlackjackStrategy
+ *  ./blackjack_strategy
  * 
  *  To run Monte Carlo simulations to numerically verify the optimal strategy:
- *  ./BlackjackStrategy sims
+ *  ./blackjack_strategy sims
  * 
  *  Assumptions: 
  *  Doubling down and splitting are allowed. 
@@ -49,7 +49,7 @@ int main (int argc, char **argv)
 void compute_strategy ()
 {
   //File name to print chart to 
-  const char *filename = "Blackjack strategy chart.tex"; 
+  const char *filename = "../output/Blackjack strategy chart.tex"; 
   //Indicates whether to show the win percentage for each hand in the chart
   const int SHOW_WIN_PCT = TRUE;
   //Indicates whether to exclude doubles and splits 
@@ -110,7 +110,7 @@ void run_sims ()
   int m; //number of additional sims to run 
   int info; 
   
-  //First, compute the strategy chart in the same way as BlackjackStrategy.c. 
+  //First, compute the strategy chart in the same way as bj_strat.c. 
   
   //chart is a NUM_HANDS by NUM_CARDS+1 matrix, with entry i,j being hands[i] 
   //and the card with face value j. 
